@@ -40,7 +40,7 @@ resource "azurerm_virtual_machine" "main" {
   resource_group_name   = "${azurerm_resource_group.main.name}"
   #network_interface_ids = ["${azurerm_network_interface.main.id}"]
   network_interface_ids = ["${element(azurerm_network_interface.main.*.id, count.index)}"]
-  vm_size               = "Standard_DS1_v2"
+  vm_size               =  "${var.machine_type["dev"]}"  # here we define which mahcine type based on variables's value.
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
   # delete_os_disk_on_termination = true
@@ -86,3 +86,4 @@ output "virtualbox" { value = "${azurerm_virtual_machine.main.*.name}"}
 
 #output "virtual" { value = "${azurerm_virtual_machine.main.vm_size}"}
 
+output "name" { value = "${join("," , azurerm_virtual_machine.main.*.id)}"}
