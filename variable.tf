@@ -14,4 +14,5 @@ variable "size" {
   default = "1024M"
 }
 
+variable "name_count" { default = ["server1", "server2" , "server3"]}
 

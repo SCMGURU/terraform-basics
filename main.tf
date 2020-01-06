@@ -19,7 +19,8 @@ resource "azurerm_subnet" "internal" {
 }
 
 resource "azurerm_network_interface" "main" {
-  name                = "${var.prefix}-nic"
+  count               = "${length(var.name_count)}"
+  name                = "${var.prefix}-nic-${count.index+1}"
   location            = "${azurerm_resource_group.main.location}"
   resource_group_name = "${azurerm_resource_group.main.name}"
 
@@ -31,10 +32,13 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_virtual_machine" "main" {
-  name                  = "${var.prefix}-vm"
+  count                 = "${length(var.name_count)}"
+  #name                  = "${var.prefix}-vm"
+  name                  = "vm-${count.index+1}"
   location              = "${azurerm_resource_group.main.location}"
   resource_group_name   = "${azurerm_resource_group.main.name}"
-  network_interface_ids = ["${azurerm_network_interface.main.id}"]
+  #network_interface_ids = ["${azurerm_network_interface.main.id}"]
+  network_interface_ids = ["${element(azurerm_network_interface.main.*.id, count.index)}"]
   vm_size               = "Standard_DS1_v2"
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
@@ -51,7 +55,7 @@ resource "azurerm_virtual_machine" "main" {
     version   = "latest"
   }
   storage_os_disk {
-    name              = "myosdisk1"
+    name              = "myosdisk1-${count.index+1}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
@@ -69,16 +73,15 @@ resource "azurerm_virtual_machine" "main" {
   }
 }
 
-output "virtual_machine_name" { value="${azurerm_resource_group.main.name}"}
+output "virtual_machine_name" { value="${azurerm_resource_group.main.*.name}"}
 
-output "virtual_machine_location" {value = "${azurerm_resource_group.main.location}"}
+output "virtual_machine_location" {value = "${azurerm_resource_group.main.*.location}"}
 
-output "azurerm_subnet" { value ="${azurerm_subnet.internal.name}"}
+output "azurerm_subnet" { value ="${azurerm_subnet.internal.*.name}"}
 
-output "vnet-name" { value = "${azurerm_virtual_network.main.name}"}
+output "vnet-name" { value = "${azurerm_virtual_network.main.*.name}"}
 
-output "virtualbox" { value = "${azurerm_virtual_machine.main.name}"}
+output "virtualbox" { value = "${azurerm_virtual_machine.main.*.name}"}
 
-output "virtual" { value = "${azurerm_virtual_machine.main.vm_size}"}
+#output "virtual" { value = "${azurerm_virtual_machine.main.vm_size}"}
 
- 
