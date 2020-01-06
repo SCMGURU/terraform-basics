@@ -4,12 +4,17 @@ resource "azurerm_resource_group" "main" {
   name     = "${var.prefix}-${var.name}"
   location =  var.location #another way to define variable from terraform
 
+  depends_on = ["azurerm_resource_group.two"] # resource group two will be build first
+
 }
 resource "azurerm_virtual_network" "main" {
   name                = "${var.prefix}-network"
   address_space       = ["10.0.0.0/16"]
   location            = "${azurerm_resource_group.main.location}"
   resource_group_name = "${azurerm_resource_group.main.name}"
+
+  depends_on = ["azurerm_resource_group.main"]
+
 }
 
 resource "azurerm_subnet" "internal" {
@@ -17,6 +22,9 @@ resource "azurerm_subnet" "internal" {
   resource_group_name  = "${azurerm_resource_group.main.name}"
   virtual_network_name = "${azurerm_virtual_network.main.name}"
   address_prefix       = "10.0.2.0/24"
+
+  #subnet should not be build unless resource group exists
+  depends_on = ["azurerm_resource_group.main"]
 }
 
 resource "azurerm_network_interface" "main" {
@@ -74,6 +82,14 @@ resource "azurerm_virtual_machine" "main" {
   }
 }
 
+#defining another resource group which depends on 1: 
+
+resource "azurerm_resource_group" "two" {
+  name     = "${var.prefix}-two"
+  location =  var.location #another way to define variable from terraform
+
+}
+
 output "virtual_machine_name" { value="${azurerm_resource_group.main.*.name}"}
 
 output "virtual_machine_location" {value = "${azurerm_resource_group.main.*.location}"}
@@ -87,3 +103,4 @@ output "virtualbox" { value = "${azurerm_virtual_machine.main.*.name}"}
 #output "virtual" { value = "${azurerm_virtual_machine.main.vm_size}"}
 
 output "name" { value = "${join("," , azurerm_virtual_machine.main.*.id)}"}
+

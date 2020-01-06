@@ -1,0 +1,259 @@
+PS L:\mylearning\terraform\terraform-basics-github\terraform-basics> terraform apply
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # azurerm_network_interface.main[0] will be created
+  + resource "azurerm_network_interface" "main" {
+      + applied_dns_servers           = (known after apply)
+      + dns_servers                   = (known after apply)
+      + enable_accelerated_networking = false
+      + enable_ip_forwarding          = false
+      + id                            = (known after apply)
+      + internal_dns_name_label       = (known after apply)
+      + internal_fqdn                 = (known after apply)
+      + location                      = "westus2"
+      + mac_address                   = (known after apply)
+      + name                          = "tfvmex-nic-1"
+      + private_ip_address            = (known after apply)
+      + private_ip_addresses          = (known after apply)
+      + resource_group_name           = "tfvmex-resources"
+      + tags                          = (known after apply)
+      + virtual_machine_id            = (known after apply)
+
+      + ip_configuration {
+          + application_gateway_backend_address_pools_ids = (known after apply)
+          + application_security_group_ids                = (known after apply)
+          + load_balancer_backend_address_pools_ids       = (known after apply)
+          + load_balancer_inbound_nat_rules_ids           = (known after apply)
+          + name                                          = "testconfiguration1"
+          + primary                                       = (known after apply)
+          + private_ip_address                            = (known after apply)
+          + private_ip_address_allocation                 = "dynamic"
+          + private_ip_address_version                    = "IPv4"
+          + subnet_id                                     = (known after apply)
+        }
+    }
+
+  # azurerm_network_interface.main[1] will be created
+  + resource "azurerm_network_interface" "main" {
+      + applied_dns_servers           = (known after apply)
+      + dns_servers                   = (known after apply)
+      + enable_accelerated_networking = false
+      + enable_ip_forwarding          = false
+      + id                            = (known after apply)
+      + internal_dns_name_label       = (known after apply)
+      + internal_fqdn                 = (known after apply)
+      + location                      = "westus2"
+      + mac_address                   = (known after apply)
+      + name                          = "tfvmex-nic-2"
+      + private_ip_address            = (known after apply)
+      + private_ip_addresses          = (known after apply)
+      + resource_group_name           = "tfvmex-resources"
+      + tags                          = (known after apply)
+      + virtual_machine_id            = (known after apply)
+
+      + ip_configuration {
+          + application_gateway_backend_address_pools_ids = (known after apply)
+          + application_security_group_ids                = (known after apply)
+          + load_balancer_backend_address_pools_ids       = (known after apply)
+          + load_balancer_inbound_nat_rules_ids           = (known after apply)
+          + name                                          = "testconfiguration1"
+          + primary                                       = (known after apply)
+          + private_ip_address                            = (known after apply)
+          + private_ip_address_allocation                 = "dynamic"
+          + private_ip_address_version                    = "IPv4"
+          + subnet_id                                     = (known after apply)
+        }
+    }
+
+  # azurerm_network_interface.main[2] will be created
+  + resource "azurerm_network_interface" "main" {
+      + applied_dns_servers           = (known after apply)
+      + dns_servers                   = (known after apply)
+      + enable_accelerated_networking = false
+      + enable_ip_forwarding          = false
+      + id                            = (known after apply)
+      + internal_dns_name_label       = (known after apply)
+      + internal_fqdn                 = (known after apply)
+      + location                      = "westus2"
+      + mac_address                   = (known after apply)
+      + name                          = "tfvmex-nic-3"
+      + private_ip_address            = (known after apply)
+      + private_ip_addresses          = (known after apply)
+      + resource_group_name           = "tfvmex-resources"
+      + tags                          = (known after apply)
+      + virtual_machine_id            = (known after apply)
+
+      + ip_configuration {
+          + application_gateway_backend_address_pools_ids = (known after apply)
+          + application_security_group_ids                = (known after apply)
+          + load_balancer_backend_address_pools_ids       = (known after apply)
+          + load_balancer_inbound_nat_rules_ids           = (known after apply)
+          + name                                          = "testconfiguration1"
+          + primary                                       = (known after apply)
+          + private_ip_address                            = (known after apply)
+          + private_ip_address_allocation                 = "dynamic"
+          + private_ip_address_version                    = "IPv4"
+          + subnet_id                                     = (known after apply)
+        }
+    }
+
+  # azurerm_resource_group.main will be created
+  + resource "azurerm_resource_group" "main" {
+      + id       = (known after apply)
+      + location = "westus2"
+      + name     = "tfvmex-resources"
+      + tags     = (known after apply)
+    }
+
+  # azurerm_resource_group.two will be created
+  + resource "azurerm_resource_group" "two" {
+      + id       = (known after apply)
+      + location = "westus2"
+      + name     = "tfvmex-two"
+      + tags     = (known after apply)
+    }
+
+  # azurerm_subnet.internal will be created
+  + resource "azurerm_subnet" "internal" {
+      + address_prefix                                 = "10.0.2.0/24"
+      + enforce_private_link_endpoint_network_policies = false
+      + enforce_private_link_service_network_policies  = false
+      + id                                             = (known after apply)
+      + ip_configurations                              = (known after apply)
+      + name                                           = "internal"
+      + resource_group_name                            = "tfvmex-resources"
+      + virtual_network_name                           = "tfvmex-network"
+    }
+
+  # azurerm_virtual_machine.main[0] will be created
+  + resource "azurerm_virtual_machine" "main" {
+      + availability_set_id              = (known after apply)
+      + delete_data_disks_on_termination = true
+      + delete_os_disk_on_termination    = false
+      + id                               = (known after apply)
+      + license_type                     = (known after apply)
+      + location                         = "westus2"
+      + name                             = "vm-1"
+      + network_interface_ids            = (known after apply)
+      + resource_group_name              = "tfvmex-resources"
+      + tags                             = {
+          + "environment" = "staging"
+        }
+      + vm_size                          = "Standard_DS1_v2"
+
+      + identity {
+          + identity_ids = (known after apply)
+          + principal_id = (known after apply)
+          + type         = (known after apply)
+        }
+
+      + os_profile {
+          + admin_password = (sensitive value)
+          + admin_username = "testadmin"
+          + computer_name  = "hostname"
+          + custom_data    = (known after apply)
+        }
+
+      + os_profile_linux_config {
+          + disable_password_authentication = false
+        }
+
+      + storage_data_disk {
+          + caching                   = (known after apply)
+          + create_option             = (known after apply)
+          + disk_size_gb              = (known after apply)
+          + lun                       = (known after apply)
+          + managed_disk_id           = (known after apply)
+          + managed_disk_type         = (known after apply)
+          + name                      = (known after apply)
+          + vhd_uri                   = (known after apply)
+          + write_accelerator_enabled = (known after apply)
+        }
+
+      + storage_image_reference {
+          + offer     = "UbuntuServer"
+          + publisher = "Canonical"
+          + sku       = "16.04-LTS"
+          + version   = "latest"
+        }
+
+      + storage_os_disk {
+          + caching                   = "ReadWrite"
+          + create_option             = "FromImage"
+          + disk_size_gb              = (known after apply)
+          + managed_disk_id           = (known after apply)
+          + managed_disk_type         = "Standard_LRS"
+          + name                      = "myosdisk1-1"
+          + os_type                   = (known after apply)
+          + write_accelerator_enabled = false
+        }
+    }
+
+  # azurerm_virtual_machine.main[1] will be created
+  + resource "azurerm_virtual_machine" "main" {
+      + availability_set_id              = (known after apply)
+      + delete_data_disks_on_termination = true
+      + delete_os_disk_on_termination    = false
+      + id                               = (known after apply)
+      + license_type                     = (known after apply)
+      + location                         = "westus2"
+      + name                             = "vm-2"
+      + network_interface_ids            = (known after apply)
+      + resource_group_name              = "tfvmex-resources"
+      + tags                             = {
+          + "environment" = "staging"
+        }
+      + vm_size                          = "Standard_DS1_v2"
+
+      + identity {
+          + identity_ids = (known after apply)
+          + principal_id = (known after apply)
+          + type         = (known after apply)
+        }
+
+      + os_profile {
+          + admin_password = (sensitive value)
+          + admin_username = "testadmin"
+          + computer_name  = "hostname"
+          + custom_data    = (known after apply)
+        }
+
+      + os_profile_linux_config {
+          + disable_password_authentication = false
+        }
+
+      + storage_data_disk {
+          + caching                   = (known after apply)
+          + create_option             = (known after apply)
+          + disk_size_gb              = (known after apply)
+          + lun                       = (known after apply)
+          + managed_disk_id           = (known after apply)
+          + managed_disk_type         = (known after apply)
+          + name                      = (known after apply)
+          + vhd_uri                   = (known after apply)
+          + write_accelerator_enabled = (known after apply)
+        }
+
+      + storage_image_reference {
+          + offer     = "UbuntuServer"
+          + publisher = "Canonical"
+          + sku       = "16.04-LTS"
+          + version   = "latest"
+        }
+
+      + storage_os_disk {
+          + caching                   = "ReadWrite"
+          + create_option             = "FromImage"
+          + disk_size_gb              = (known after apply)
+          + managed_disk_id           = (known after apply)
+          + managed_disk_type         = "Standard_LRS"
+          + name                      = "myosdisk1-2"
+          + os_type                   = (known after apply)
+          + write_accelerator_enabled = false
+        }
+    }
