@@ -1,4 +1,5 @@
  
+#teraform working script for creating multiple VM's
 resource "azurerm_resource_group" "main" {
   name     = "${var.prefix}-${var.name}"
   location =  var.location #another way to define variable from terraform
