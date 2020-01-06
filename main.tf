@@ -41,14 +41,16 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_virtual_machine" "main" {
-  count                 = "${length(var.name_count)}"
+  count                 =   1
+  #count                 = "${length(var.name_count)}"
   #name                  = "${var.prefix}-vm"
   name                  = "vm-${count.index+1}"
   location              = "${azurerm_resource_group.main.location}"
   resource_group_name   = "${azurerm_resource_group.main.name}"
   #network_interface_ids = ["${azurerm_network_interface.main.id}"]
   network_interface_ids = ["${element(azurerm_network_interface.main.*.id, count.index)}"]
-  vm_size               =  "${var.machine_type["dev"]}"  # here we define which mahcine type based on variables's value.
+  #vm_size               =  "${var.machine_type["dev"]}"  # here we define which mahcine type based on variables's value.
+  vm_size               = "${"${var.environment}" == "prod" ?  var.machine_type_prod : var.machine_type_dev}"
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
   # delete_os_disk_on_termination = true

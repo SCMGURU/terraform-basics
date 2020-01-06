@@ -33,9 +33,14 @@ Following list of task done:
 we will see output as follows: 
 name = /subscriptions/******/resourceGroups/tfvmex-resources/providers/Microsoft.Compute/virtualMachines/vm-1,/subscriptions//******//resourceGroups/tfvmex-resources/providers/Microsoft.Compute/virtualMachines/vm-2,/subscriptions/******/resourceGroups/tfvmex-resources/providers/Microsoft.Compute/virtualMachines/vm-3
 
-# Adding depends_on, 
+# 4: Adding depends_on and if_else
 
 - depends_on sets build order for creation of respective resoruces. Here resource group "two" is built first before "main". Only relected during "apply". Added log for same.
+
+# 5: Adding IF_ELSE fucntion 
+- added variables environemnt and machine_type which is picked up based on value of environment:
+vm_size               = "${"${var.environment}" == "prod" ?  var.machine_type_prod : var.machine_type_dev}"
+
 
 
 
